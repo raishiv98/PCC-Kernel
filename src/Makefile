@@ -1,17 +1,17 @@
 ifneq ($(KERNELRELEASE),)
 
 # kbuild part of makefile
-obj-m  := tcp_pcc.o
-#tcp_pcc-y := tcp_pcc.o
+obj-m := tcp_pcc.o
 
 else
 # normal makefile
 
-KDIR ?= /lib/modules/`uname -r`/build
+KDIR ?= /lib/modules/$(shell uname -r)/build
 
 default:
-	$(MAKE) -C $(KDIR) M=$$PWD
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
+
 endif
